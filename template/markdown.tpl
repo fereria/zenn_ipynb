@@ -23,9 +23,7 @@
 {% endblock input %}
 
 {% block error %}
-```
-{{ super() | add_prompts}}
-```
+{{ super() | add_prompts("> ","> ")}}
 {% endblock error %}
 
 {% block traceback_line %}
@@ -40,9 +38,7 @@
 {% endblock execute_result %}
 
 {% block stream %}
-```
-{{ output.text | add_prompts}}
-```
+{{ output.text | add_prompts("> ","> ")}}
 {% endblock stream %}
 
 {% block data_svg %}
@@ -70,9 +66,7 @@
 {% endblock data_markdown %}
 
 {% block data_text scoped %}
-```
-{{ output.data['text/plain'] | add_prompts}}
-```
+{{ output.data['text/plain'] | add_prompts("> ","> ")}}
 {% endblock data_text %}
 
 {% block markdowncell scoped %}

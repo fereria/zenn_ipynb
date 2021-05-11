@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import glob
-import subprocess
 import os.path
 import os
 import codecs
