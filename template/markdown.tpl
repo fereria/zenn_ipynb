@@ -2,6 +2,10 @@
 
 
 {% block in_prompt %}
+{% if cell.execution_count > 0%}
+----
+{% endif %}
+
 {% endblock in_prompt %}
 
 {% block output_prompt %}
@@ -19,7 +23,9 @@
 {% endblock input %}
 
 {% block error %}
-{{ super() }}
+```
+{{ super() | add_prompts}}
+```
 {% endblock error %}
 
 {% block traceback_line %}
@@ -34,7 +40,9 @@
 {% endblock execute_result %}
 
 {% block stream %}
-{{ output.text }}
+```
+{{ output.text | add_prompts}}
+```
 {% endblock stream %}
 
 {% block data_svg %}
@@ -62,7 +70,9 @@
 {% endblock data_markdown %}
 
 {% block data_text scoped %}
-{{ output.data['text/plain'] | indent }}
+```
+{{ output.data['text/plain'] | add_prompts}}
+```
 {% endblock data_text %}
 
 {% block markdowncell scoped %}
