@@ -11,8 +11,11 @@ GithubActionの勉強を兼ねて、ipynbをPushすることで、Zennの記事�
   
 以下のコードは、以前書いたもの。  
 
+まず、モジュールをロードします。
 
-#### [2]:
+
+----
+
 
 
 ```python
@@ -20,15 +23,19 @@ from pxr import Usd,Sdf
 ```
 
 
-#### [3]:
+----
+
 
 
 ```python
 ROOT_PATH = "d:/work/py37/USD/clip/"
 ```
 
+次にValueClip用のレイヤーをロードします。  
 
-#### [6]:
+
+----
+
 
 
 ```python
@@ -39,32 +46,34 @@ print(a.ExportToString())
 print(b.ExportToString())
 ```
 
-:::message
-#usda 1.0
+```
+>>> #usda 1.0
+... 
+... def "ModelA"
+... {
+...     double a.timeSamples = {
+...         1: 1,
+...     }
+...     double b = 10
+... }
+... 
+... 
+... #usda 1.0
+... 
+... def "ModelA"
+... {
+...     double a.timeSamples = {
+...         2: 100,
+...     }
+... }
+... 
+... 
+... 
+```
 
-def "ModelA"
-{
-    double a.timeSamples = {
-        1: 1,
-    }
-    double b = 10
-}
 
+----
 
-#usda 1.0
-
-def "ModelA"
-{
-    double a.timeSamples = {
-        2: 100,
-    }
-}
-
-
-:::
-
-
-#### [7]:
 
 
 ```python
@@ -76,7 +85,8 @@ manifest = Usd.ClipsAPI.GenerateClipManifestFromLayers([a,b],'/Model')
 ```
 
 
-#### [8]:
+----
+
 
 
 ```python
@@ -86,13 +96,20 @@ print(manifest.ExportToString())
 manifest.Export(ROOT_PATH + "/manifest_sample.usda")
 ```
 
-:::message
-#usda 1.0
+```
+>>> #usda 1.0
+... 
+... 
+... 
+```
 
 
-:::
 
-:::message:::
+
+```
+>>> True
+```
+
 
 
 実行した結果は、GithubActionsでMarkdownに変換＆GitへPushされる。
