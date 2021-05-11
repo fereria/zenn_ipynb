@@ -15,18 +15,18 @@
 
 {% block stream %}
 :::message{{"\n"}}
-{{- output.text|replace("^    ","") -}}
+{{- output.text -}}
 :::
 {% endblock stream %}
 
 {% block execute_result%}
 :::message
-{{- output.text|replace("^    ","") -}}  
+{{- output.text -}}  
 :::
 
 {% endblock execute_result%}
 {% block error %}
 :::message alert
-{{- output.text|replace("^    ","") -}}
+{{- output.text -}}
 :::
 {% endblock error %}

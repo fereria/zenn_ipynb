@@ -6,16 +6,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: docker://fereria/nbconvert:latest
     steps:
       - name: Git config
         run: |
           git config --global core.symlinks true
           git config --global user.name "Megumi Ando"
           git config --global user.email "remiria@flame-daybreak.net"
+
       - uses: actions/checkout@master
+
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+
+      - name: Docker Compose
+        run: docker-compose -f docker/docker-compose.yml up --build -d
+
       - name: Convert Ipynb to Markdown
-        run: python ipynb_convert.py
+        run: docker exec usdnotebook python ipynb_convert.py
       - name: push
         run: |
           git add articles/*.md

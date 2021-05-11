@@ -23,7 +23,7 @@
 {% endblock error %}
 
 {% block traceback_line %}
-{{ line | indent | strip_ansi }}
+{{ line  | strip_ansi }}
 {% endblock traceback_line %}
 
 {% block execute_result %}
@@ -34,7 +34,7 @@
 {% endblock execute_result %}
 
 {% block stream %}
-{{ output.text | indent }}
+{{ output.text }}
 {% endblock stream %}
 
 {% block data_svg %}

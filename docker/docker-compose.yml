@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  pythontest:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: usdnotebook
+    stdin_open: true
+    volumes:
+      - ../:/work_dir
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    command: jupyter lab --NotebookApp.token='' --allow-root --no-browser --port 8888 --ip=0.0.0.0
