@@ -3,24 +3,15 @@ title: "ipynbでZennの記事を書こう"
 emoji: "😸"
 type: "idea"
 topics: ["Zenn","JupyterNotebook"]
-published: false
+published: true
 ---
-Zennで記事を書くときに、Pythonのコードを使う場合は、  
-普通に記事を書くよりも、Notebookをそのまま公開したいときなんかもある...と思ったので、  
-GithubActionの勉強を兼ねて、ipynbをPushすることで、Zennの記事を投稿できるようにしてみる。  
-  
-以下のコードは、以前書いたもの。  
+この記事は、Notebookを使用して書いています。
 
-まず、モジュールをロードします。
+## HeaderFormatterの書き方
 
+![](https://gyazo.com/3e428097b74fc40bc7877c5f37b0a6af.png)
 
-----
-
-
-
-```python
-from pxr import Usd,Sdf
-```
+Markdownで書いてもよいですが、NotebookらしくPythonで記述できるようにしました。
 
 
 ----
@@ -28,91 +19,92 @@ from pxr import Usd,Sdf
 
 
 ```python
-ROOT_PATH = "d:/work/py37/USD/clip/"
+# -*- coding: utf-8 -*-
+
+import glob
+import os.path
+import os
+import codecs
+
+import nbconvert
+import nbformat
+
+os.makedirs('articles', exist_ok=True)
+
+
+for ipynb in glob.glob("./ipynb/*.ipynb"):
+
+    with codecs.open(ipynb, 'r', 'utf-8') as f:
+        lines = f.readlines()
+    f = nbformat.reads("".join(lines), as_version=4)
+    cell = f['cells'].pop(0)
+    exec(cell['source'])
+    header = ["---",
+              f'title: "{title}"',
+              f'emoji: "{emoji}"',
+              f'type: "{text_type}"',
+              "topics: " + "[" + ",".join([f"\"{x}\"" for x in topics]) + "]",
+              "published: " + ("true" if published else "false"),
+              "---"]
+
+    exporter = nbconvert.TemplateExporter(template_file="template/markdown.tpl")
+    (body, resources) = exporter.from_notebook_node(f)
+
+    with codecs.open(f'articles/{os.path.splitext(os.path.basename(ipynb))[0]}.md', 'w', 'utf-8') as f:
+        f.write("\n".join(header) + "\n" + body)
+
 ```
 
-次にValueClip用のレイヤーをロードします。  
+ipynbからの変換は、コマンドラインではなくPythonスクリプトを使用します。
+１セル目はFormatterであるとして、CellをPopして
+その内容をHeaderとして使用します。
 
+あとは、nbconvertのTemplateExporterを使用すれば markdownにすることができます。
 
-----
 
 
 
 ```python
-# Clipを作る
-a = Sdf.Layer.FindOrOpen(ROOT_PATH + 'A/clip.1.usda')
-b = Sdf.Layer.FindOrOpen(ROOT_PATH + 'A/clip.2.usda')
-print(a.ExportToString())
-print(b.ExportToString())
+print("Hello World!!")
 ```
 
-```
->>> #usda 1.0
-... 
-... def "ModelA"
-... {
-...     double a.timeSamples = {
-...         1: 1,
-...     }
-...     double b = 10
-... }
-... 
-... 
-... #usda 1.0
-... 
-... def "ModelA"
-... {
-...     double a.timeSamples = {
-...         2: 100,
-...     }
-... }
-... 
-... 
-... 
-```
+> Hello World!!
+> 
 
+Pythonの実行結果を表示した例。
+Notebookを使用するメリットとして、このようにコマンドをその場で実行し
+その実行結果を残せることがあります。
 
-----
+テストしつつ、そのまま記事になるのはとても良さそうです。
 
+記事は、VSCodeで書くこともできますが、JupyterLabで書くこともできます。
 
+![](https://gyazo.com/698a75b8de7a9bde36add7558534515a.png)
 
-```python
-# ClipのレイヤーからManifestを作る。
-# Manifestは、ClipsAPIを使用するときに、クリップでアクセスアトリビュートの
-# インデックスを作るためのファイル。
-# ClipのうちTimeSampleを持つアトリビュートの定義を作る。
-manifest = Usd.ClipsAPI.GenerateClipManifestFromLayers([a,b],'/Model')
-```
+JupyterLabで書いている場合の参考例。
+こちらも問題なく記事を書くことができます。
 
+![](https://gyazo.com/0a7214a933a81196a28025e3aef17cc2.png)
 
-----
+JupyterLabの環境は、Dockerコンテナを使用して構築されています。
+このコンテナは、GithubActionsを使用して記事を反映する際に使用するものと同じになります。
 
-
-
-```python
-# 結果は、アノニマスレイヤーとして取得できるので
-# このアノニマスレイヤーを保存して使用する。
-print(manifest.ExportToString())
-manifest.Export(ROOT_PATH + "/manifest_sample.usda")
-```
+https://github.com/fereria/zenn_ipynb/tree/master/docker
 
 ```
->>> #usda 1.0
-... 
-... 
-... 
+docker-compose -f "docker\docker-compose.yml" up -d --build
 ```
+docker-compose を使用すれば、USD入りの執筆環境JupyterNotebokが起動して、
+http://localhost:8888
+で接続することができます。
 
+## まとめ
 
+通常の記事であれば、VSCodeでMarkdownを使用して書くほうが楽ですが、
+スクリプトをごりごり検証しながら記事を書くような場合は、Notebook上で記事を作成できるのは
+とてもメリットがあります。
 
+しばらくは色々検証して、より書きやすい環境にアップデートしていければなとおもいます。
 
-```
->>> True
-```
-
-
-
-実行した結果は、GithubActionsでMarkdownに変換＆GitへPushされる。
-Push先を、Zennの対象フォルダにすることで、NotebookをZennの記事として投稿できる。
-
-公開用のブランチを分けることで、mainでPullしないと衝突する..みたいなことは防ぐ。
+https://github.com/fereria/zenn_ipynb
+公開用のGithubはこちら。
