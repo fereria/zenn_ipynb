@@ -2,7 +2,7 @@
 
 
 {% block in_prompt %}
-{% if cell.execution_count > 0%}
+{% if not cell.execution_count%}
 ----
 {% endif %}
 
