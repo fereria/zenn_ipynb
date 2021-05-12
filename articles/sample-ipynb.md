@@ -72,7 +72,7 @@ ipynbからの変換は、コマンドラインではなくPythonスクリプト
 
 
 ```python
-print("Hello World!!")
+print("Hello World!!!")
 ```
 
 > Hello World!!
