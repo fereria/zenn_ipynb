@@ -27,4 +27,4 @@ jobs:
         run: |
           git add articles/*.md
           git commit -m "add md" -a
-          git push
+          git push origin articles
