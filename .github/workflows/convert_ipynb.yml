@@ -12,6 +12,7 @@ jobs:
           git config --global core.symlinks true
           git config --global user.name "Megumi Ando"
           git config --global user.email "remiria@flame-daybreak.net"
+          git config pull.rebase true
 
       - uses: actions/checkout@master
 
