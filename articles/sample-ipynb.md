@@ -7,6 +7,13 @@ published: true
 ---
 この記事は、Notebookを使用して書いています。
 
+:::message
+元になっているipynbは
+https://github.com/fereria/zenn_ipynb/blob/master/ipynb/sample-ipynb.ipynb
+こちらで、ipynbをGitにPushすると、GithubActionsが実行されて
+自動でmarkdownに変換→mdをpushしています。
+:::
+
 ## HeaderFormatterの書き方
 
 ![](https://gyazo.com/3e428097b74fc40bc7877c5f37b0a6af.png)
@@ -94,7 +101,7 @@ https://github.com/fereria/zenn_ipynb/tree/master/docker
 ```
 docker-compose -f "docker\docker-compose.yml" up -d --build
 ```
-docker-compose を使用すれば、USD入りの執筆環境JupyterNotebokが起動して、
+docker-compose を使用すれば、USD入りの執筆環境JupyterNotebookが起動して、
 http://localhost:8888
 で接続することができます。
 
