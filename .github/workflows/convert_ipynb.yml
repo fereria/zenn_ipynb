@@ -12,6 +12,7 @@ jobs:
           git config --global core.symlinks true
           git config --global user.name "Megumi Ando"
           git config --global user.email "remiria@flame-daybreak.net"
+          git init
 
       - uses: actions/checkout@master
       - uses: satackey/action-docker-layer-caching@v0.0.11
@@ -28,7 +29,7 @@ jobs:
 
       - name: Git Changes
         run: |
-          git add -N articles/*.md
+          git add articles/*.md
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: push
         run: |
