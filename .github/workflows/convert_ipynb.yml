@@ -30,6 +30,6 @@ jobs:
       - name: Git Changes
         run: |
           git add articles/*.md
-          git diff --name-only | wc -l
+          git diff origin/master...HEAD --name-only | wc -l
           git commit -m "add md" -a
           git push
