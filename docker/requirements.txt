@@ -1,3 +1,4 @@
 usd-core
 jupyter
 jupyterlab
+pytest

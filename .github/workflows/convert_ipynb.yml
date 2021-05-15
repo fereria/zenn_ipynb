@@ -19,6 +19,9 @@ jobs:
       - name: Docker Compose
         run: docker-compose -f docker/docker-compose.yml up --build -d
 
+      - name: Tests
+        run: docker exec usdnotebook pytest -s
+
       - name: Convert Ipynb to Markdown
         run: docker exec usdnotebook python ipynb_convert.py
       - name: push
