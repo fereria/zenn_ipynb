@@ -30,10 +30,6 @@ jobs:
       - name: Git Changes
         run: |
           git add articles/*.md
-          echo "::set-output name=count::$(git diff --name-only | wc -l)"
-      - name: push
-        run: |
+          git diff --name-only | wc -l
           git commit -m "add md" -a
-          git switch -m articles
-          git push origin origin:articles
-        if: steps.changes.outputs.count > 0
+          git push
