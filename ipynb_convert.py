@@ -30,4 +30,5 @@ for ipynb in glob.glob("./ipynb/*.ipynb"):
     (body, resources) = exporter.from_notebook_node(f)
 
     with codecs.open(f'articles/{os.path.splitext(os.path.basename(ipynb))[0]}.md', 'w', 'utf-8') as f:
+        print(f'articles/{os.path.splitext(os.path.basename(ipynb))[0]}.md')
         f.write("\n".join(header) + "\n" + body)
