@@ -70,7 +70,7 @@ print('hello world')
 
 
 ```python
-print("hoge hoge")
+print("hoge hoge hoge")
 ```
 
 > hoge hoge
