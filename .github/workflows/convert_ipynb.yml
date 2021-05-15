@@ -27,7 +27,7 @@ jobs:
 
       - name: Git Changes
         run: |
-          git add articles/*.md
+          git add -N articles/*.md
           echo "::set-output name=count::$(git diff --name-only | wc -l)"
       - name: push
         run: |
