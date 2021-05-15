@@ -29,4 +29,4 @@ jobs:
           git add articles/*.md
           git commit -m "add md" -a
           git switch -m articles
-          git push
+          git push origin origin:articles
