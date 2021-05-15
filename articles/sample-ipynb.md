@@ -20,11 +20,6 @@ https://github.com/fereria/zenn_ipynb/blob/master/ipynb/sample-ipynb.ipynb
 
 Markdownで書いてもよいですが、NotebookらしくPythonで記述できるようにしました。
 
-
-----
-
-
-
 ```python
 # -*- coding: utf-8 -*-
 
@@ -59,7 +54,6 @@ for ipynb in glob.glob("./ipynb/*.ipynb"):
 
     with codecs.open(f'articles/{os.path.splitext(os.path.basename(ipynb))[0]}.md', 'w', 'utf-8') as f:
         f.write("\n".join(header) + "\n" + body)
-
 ```
 
 ipynbからの変換は、コマンドラインではなくPythonスクリプトを使用します。
