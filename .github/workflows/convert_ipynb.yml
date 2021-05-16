@@ -30,6 +30,9 @@ jobs:
       - name: Git Changes
         run: |
           git add articles/*.md
-          git diff origin/master...HEAD --name-only | wc -l
           git commit -m "add md" -a
-          git push
+          git diff origin/master..HEAD --name-only | wc -l
+
+      - name: Git Push
+          git switch -m articles
+          git push origin origin:articles
