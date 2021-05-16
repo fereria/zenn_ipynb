@@ -27,14 +27,12 @@ jobs:
       - name: Convert Ipynb to Markdown
         run: docker exec usdnotebook python ipynb_convert.py
 
-      - name: Commit
-        run: |
-          git add articles/*.md
-          git switch -c articles
-          git commit -m "add md" -a
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: push
+        uses: actions-x/commit@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "articles"
+          email: remiria@flame-daybreak.net
+          name: GitHub Actions Autocommitter
+          branch: articles
+          files: articles
+          repository: https://github.com/fereria/zenn_ipynb
+          token: ${{ secrets.MY_SECRET_TOKEN }}
