@@ -26,6 +26,7 @@ jobs:
 
       - name: Convert Ipynb to Markdown
         run: docker exec usdnotebook python ipynb_convert.py
+<<<<<<< Updated upstream
 
       - name: push
         uses: actions-x/commit@v2
@@ -36,3 +37,13 @@ jobs:
           files: articles
           repository: https://github.com/fereria/zenn_ipynb
           token: ${{ secrets.MY_SECRET_TOKEN }}
+=======
+<<<<<<< articles
+      - name: push
+        run: |
+          git add articles/*.md
+          git commit -m "add md" -a
+          git push
+=======
+>>>>>>> local
+>>>>>>> Stashed changes
