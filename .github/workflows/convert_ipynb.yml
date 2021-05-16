@@ -34,5 +34,6 @@ jobs:
           git diff origin/master..HEAD --name-only | wc -l
 
       - name: Git Push
+        run: |
           git switch -m articles
           git push origin origin:articles
