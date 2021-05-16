@@ -35,5 +35,5 @@ jobs:
         id: changes
       - name: Git Push
         run: |
-          git push
+          git push origin origin:articles
         if: steps.changes.outputs.count > 0
