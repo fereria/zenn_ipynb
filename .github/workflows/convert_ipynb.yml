@@ -36,5 +36,5 @@ jobs:
         id: changes
       - name: Git Push
         run: |
-          git push
+          git push --set-upstream origin articles
         if: steps.changes.outputs.count > 0
