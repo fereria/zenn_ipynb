@@ -27,15 +27,11 @@ jobs:
       - name: Convert Ipynb to Markdown
         run: docker exec usdnotebook python ipynb_convert.py
 
-      - name: Git Changes
-        run: |
-          git add articles/*.md
-          git switch -c articles
-          git commit -m "add md" -a
-          echo "::set-output name=count::$(git diff origin/master..HEAD --name-only | wc -l)"
-        id: changes
-      - name: Git Push
-        run: |
-          git pull origin articles
-          git push --set-upstream origin articles
-        if: steps.changes.outputs.count > 0
+      - name: Push to articles Branch
+        uses 
+      uses: s0/git-publish-subdir-action@master
+      env:
+        REPO: self
+        BRANCH: articles
+        FOLDER: articles
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
