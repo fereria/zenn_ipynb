@@ -30,11 +30,11 @@ jobs:
       - name: Git Changes
         run: |
           git add articles/*.md
+          git switch -m articles
           git commit -m "add md" -a
           echo "::set-output name=count::$(git diff origin/master..HEAD --name-only | wc -l)"
 
       - name: Git Push
         run: |
-          git switch -m articles
           git push
         if: steps.changes.outputs.count > 0
