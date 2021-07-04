@@ -1,0 +1,17 @@
+#usda 1.0
+(
+    defaultPrim = "root"
+)
+
+def Xform "root"
+{
+    def "CubeA"(
+        prepend references = @cube.usda@
+    ){
+        int testValue = 100
+    }
+    def "CubeB"(
+        prepend references = @cube.usda@
+    ){
+    }
+}
