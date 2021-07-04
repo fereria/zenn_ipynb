@@ -26,7 +26,7 @@ for ipynb in glob.glob("./ipynb/*.ipynb"):
               "published: " + ("true" if published else "false"),
               "---"]
 
-    exporter = nbconvert.TemplateExporter(template_file="template/markdown.tpl")
+    exporter = nbconvert.TemplateExporter(template_file="template/zenn_markdown.tpl")
     (body, resources) = exporter.from_notebook_node(f)
 
     with codecs.open(f'articles/{os.path.splitext(os.path.basename(ipynb))[0]}.md', 'w', 'utf-8') as f:
