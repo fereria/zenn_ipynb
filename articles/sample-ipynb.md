@@ -67,11 +67,11 @@ ipynbからの変換は、コマンドラインではなくPythonスクリプト
 
 ```python
 print("Hello World!!!")
-print("hoge")
+print("hoge hoge hoge")
 ```
 
 > Hello World!!!
-> hoge
+> hoge hoge hoge
 > 
 
 Pythonの実行結果を表示した例。
