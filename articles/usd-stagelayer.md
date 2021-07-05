@@ -1,8 +1,8 @@
 ---
 title: "Pythonで始めるUSDの基本 - Stage/Layer"
 emoji: "😸"
-type: "idea"
-topics: ["Zenn","USD","Python"]
+type: "tech"
+topics: ["USD","Python","3DCG"]
 published: true
 ---
 ## はじめに
@@ -35,7 +35,7 @@ print(layer.ExportToString())
 ```
 
 ```bat : >> Result
-Sdf.Find('/work_dir/ipynb/usd/cube.usda')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/cube.usda')
 #usda 1.0
 (
     defaultPrim = "cube"
@@ -124,7 +124,7 @@ print(stage.ExportToString())
 #usda 1.0
 (
     defaultPrim = "root"
-    doc = """Generated from Composed Stage of root layer /work_dir/ipynb/usd/reference.usda
+    doc = """Generated from Composed Stage of root layer d:\\work\\zenn_ipynb\\ipynb\\usd\\reference.usda
 """
 )
 
@@ -195,9 +195,7 @@ Usd.Prim(</root/CubeA>)
 「ステージ」とは「複数のレイヤーの合成した結果出来上がったシーングラフ」です。  
 つまり、ステージ上にあるプリムを GetPrimAtPathで取得した場合に  
 取得できるものは「プリム」であり、  
-**いくつかのレイヤーによって合成された結果できあがったもの**になります。  
-  
-![](https://gyazo.com/73c7410706978f80cf6e006ea6103345.png)
+**いくつかのレイヤーによって合成された結果できあがったもの** になります。  
 
 ## スペック
 
@@ -211,7 +209,7 @@ CubeAが出来上がっています。
 
 このようになっています。
 
-それぞれのレイヤーの、シーングラフに組み立てられる前の
+それぞれのレイヤーの、シーングラフに組み立てられる前の 
 reference.usda の CubeA や、 cube.usda の cubeなどの要素をPrimSpecと呼びます。
 これは、合成される前の「主張＝オピニオン」です。
 
@@ -258,7 +256,7 @@ for attr in spec.attributes:
 ```
 
 ```bat : >> Result
-Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/reference.usda', '/root/CubeA.testValue')
 
 ```
 
@@ -303,8 +301,9 @@ for comp in query.GetCompositionArcs():
     # Target=されているNode、Introducing=しているNodeを取得できる
     # NodeRefとは、シーンディスクリプションを合成するためのノード（コンポジション）を取得できる
     if node.IsRootNode():
+        # RootNodeの場合、LayerStackの先頭にアノニマスレイヤーが含まれるので
+        # 2番目をRootLayerとして取得する。
         layer = node.layerStack.layers[1]
-        # Rootの場合はアノニマスレイヤーがLayerStackに含まれているので
     else:
         layer = node.layerStack.layers[0]
     primSpec = layer.GetPrimAtPath(node.path)
@@ -316,11 +315,11 @@ for comp in query.GetCompositionArcs():
 
 ```bat : >> Result
 Pcp.ArcTypeRoot
-Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA')
-Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/reference.usda', '/root/CubeA')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/reference.usda', '/root/CubeA.testValue')
 Pcp.ArcTypeReference
-Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube')
-Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube.testValue')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/cube.usda', '/cube')
+Sdf.Find('d:/work/zenn_ipynb/ipynb/usd/cube.usda', '/cube.testValue')
 
 ```
 
