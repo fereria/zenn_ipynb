@@ -70,9 +70,11 @@ print("Hello World!!!")
 print("hoge hoge hoge")
 ```
 
-> Hello World!!!
-> hoge hoge hoge
-> 
+```bat : >> Result
+Hello World!!!
+hoge hoge hoge
+
+```
 
 Pythonの実行結果を表示した例。
 Notebookを使用するメリットとして、このようにコマンドをその場で実行し

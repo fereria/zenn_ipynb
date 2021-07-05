@@ -34,19 +34,21 @@ print(layer)
 print(layer.ExportToString())
 ```
 
-> Sdf.Find('/work_dir/ipynb/usd/cube.usda')
-> #usda 1.0
-> (
->     defaultPrim = "cube"
-> )
-> 
-> def Cube "cube"
-> {
->     int testValue = 10
-> }
-> 
-> 
-> 
+```bat : >> Result
+Sdf.Find('/work_dir/ipynb/usd/cube.usda')
+#usda 1.0
+(
+    defaultPrim = "cube"
+)
+
+def Cube "cube"
+{
+    int testValue = 10
+}
+
+
+
+```
 
 まず１つめが、なんのコンポジションも含まない、シンプルなキューブに、  
 testValueというアトリビュートに10が設定されているレイヤーです。  
@@ -64,29 +66,31 @@ refLayer = Sdf.Layer.FindOrOpen(f"{USD_ROOT}/reference.usda")
 print(refLayer.ExportToString())
 ```
 
-> #usda 1.0
-> (
->     defaultPrim = "root"
-> )
-> 
-> def Xform "root"
-> {
->     def "CubeA" (
->         prepend references = @cube.usda@
->     )
->     {
->         int testValue = 100
->     }
-> 
->     def "CubeB" (
->         prepend references = @cube.usda@
->     )
->     {
->     }
-> }
-> 
-> 
-> 
+```bat : >> Result
+#usda 1.0
+(
+    defaultPrim = "root"
+)
+
+def Xform "root"
+{
+    def "CubeA" (
+        prepend references = @cube.usda@
+    )
+    {
+        int testValue = 100
+    }
+
+    def "CubeB" (
+        prepend references = @cube.usda@
+    )
+    {
+    }
+}
+
+
+
+```
 
 次に、もう一つのレイヤーを開いてみます。  
   
@@ -116,28 +120,30 @@ stage = Usd.Stage.Open(refLayer)
 print(stage.ExportToString())
 ```
 
-> #usda 1.0
-> (
->     defaultPrim = "root"
->     doc = """Generated from Composed Stage of root layer /work_dir/ipynb/usd/reference.usda
-> """
-> )
-> 
-> def Xform "root"
-> {
->     def Cube "CubeA"
->     {
->         int testValue = 100
->     }
-> 
->     def Cube "CubeB"
->     {
->         int testValue = 10
->     }
-> }
-> 
-> 
-> 
+```bat : >> Result
+#usda 1.0
+(
+    defaultPrim = "root"
+    doc = """Generated from Composed Stage of root layer /work_dir/ipynb/usd/reference.usda
+"""
+)
+
+def Xform "root"
+{
+    def Cube "CubeA"
+    {
+        int testValue = 100
+    }
+
+    def Cube "CubeB"
+    {
+        int testValue = 10
+    }
+}
+
+
+
+```
 
 先程のレイヤーを、ステージで開いてみます。  
 開いているのは reference.usda で、
@@ -177,8 +183,10 @@ primA = stage.GetPrimAtPath('/root/CubeA')
 print(primA)
 ```
 
-> Usd.Prim(</root/CubeA>)
-> 
+```bat : >> Result
+Usd.Prim(</root/CubeA>)
+
+```
 
 ステージからGetPrimAtPathを使用することで、指定したパスのプリムを  
 取得することができます。  
@@ -217,17 +225,19 @@ for attr in primA.GetAttributes():
     print(attr)
 ```
 
-> Usd.Prim(</root/CubeA>).GetAttribute('doubleSided')
-> Usd.Prim(</root/CubeA>).GetAttribute('extent')
-> Usd.Prim(</root/CubeA>).GetAttribute('orientation')
-> Usd.Prim(</root/CubeA>).GetAttribute('primvars:displayColor')
-> Usd.Prim(</root/CubeA>).GetAttribute('primvars:displayOpacity')
-> Usd.Prim(</root/CubeA>).GetAttribute('purpose')
-> Usd.Prim(</root/CubeA>).GetAttribute('size')
-> Usd.Prim(</root/CubeA>).GetAttribute('testValue')
-> Usd.Prim(</root/CubeA>).GetAttribute('visibility')
-> Usd.Prim(</root/CubeA>).GetAttribute('xformOpOrder')
-> 
+```bat : >> Result
+Usd.Prim(</root/CubeA>).GetAttribute('doubleSided')
+Usd.Prim(</root/CubeA>).GetAttribute('extent')
+Usd.Prim(</root/CubeA>).GetAttribute('orientation')
+Usd.Prim(</root/CubeA>).GetAttribute('primvars:displayColor')
+Usd.Prim(</root/CubeA>).GetAttribute('primvars:displayOpacity')
+Usd.Prim(</root/CubeA>).GetAttribute('purpose')
+Usd.Prim(</root/CubeA>).GetAttribute('size')
+Usd.Prim(</root/CubeA>).GetAttribute('testValue')
+Usd.Prim(</root/CubeA>).GetAttribute('visibility')
+Usd.Prim(</root/CubeA>).GetAttribute('xformOpOrder')
+
+```
 
 対してPrimから取得した場合はこのようになります。
 
@@ -247,8 +257,10 @@ for attr in spec.attributes:
     print(attr)
 ```
 
-> Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
-> 
+```bat : >> Result
+Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
+
+```
 
 対して、プリムスペックからアトリビュートを取得した場合はどうなるかというと  
 
@@ -302,13 +314,15 @@ for comp in query.GetCompositionArcs():
         print(i)
 ```
 
-> Pcp.ArcTypeRoot
-> Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA')
-> Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
-> Pcp.ArcTypeReference
-> Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube')
-> Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube.testValue')
-> 
+```bat : >> Result
+Pcp.ArcTypeRoot
+Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA')
+Sdf.Find('/work_dir/ipynb/usd/reference.usda', '/root/CubeA.testValue')
+Pcp.ArcTypeReference
+Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube')
+Sdf.Find('/work_dir/ipynb/usd/cube.usda', '/cube.testValue')
+
+```
 
 取得するには PrimCompositionQueryを使用します。  
 これは、関数名のとおり「あるPrimのコンポジションをすべて列挙」することができます。  

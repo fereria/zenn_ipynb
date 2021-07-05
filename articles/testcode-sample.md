@@ -19,19 +19,21 @@ attr = prim.CreateAttribute("testVal",Sdf.ValueTypeNames.String).Set("Hoge")
 print(stage.ExportToString())
 ```
 
-> #usda 1.0
-> (
->     doc = """Generated from Composed Stage of root layer 
-> """
-> )
-> 
-> def "testPrim"
-> {
->     custom string testVal = "Hoge"
-> }
-> 
-> 
-> 
+```bat : >> Result
+#usda 1.0
+(
+    doc = """Generated from Composed Stage of root layer 
+"""
+)
+
+def "testPrim"
+{
+    custom string testVal = "Hoge"
+}
+
+
+
+```
 
 
 
@@ -41,18 +43,20 @@ print(stage.ExportToString())
 raise
 ```
 
-> 
-> ---------------------------------------------------------------------------
-> 
-> RuntimeError                              Traceback (most recent call last)
-> 
-> <ipython-input-13-c9896f4b2c48> in <module>
->       1 # 実行済 ( execution_countありの場合) は、エラーでもテストはエラーにしない
-> ----> 2 raise
-> 
-> 
-> RuntimeError: No active exception to reraise
-> 
+```bat : >> Result Error
+
+---------------------------------------------------------------------------
+
+RuntimeError                              Traceback (most recent call last)
+
+<ipython-input-13-c9896f4b2c48> in <module>
+      1 # 実行済 ( execution_countありの場合) は、エラーでもテストはエラーにしない
+----> 2 raise
+
+
+RuntimeError: No active exception to reraise
+
+```
 
 Markdownになっているセルはテストしない
 
@@ -63,8 +67,10 @@ Markdownになっているセルはテストしない
 print('hello world')
 ```
 
-> hello world
-> 
+```bat : >> Result
+hello world
+
+```
 
 
 
@@ -73,8 +79,10 @@ print('hello world')
 print("hoge hoge hoge hoge")
 ```
 
-> hoge hoge
-> 
+```bat : >> Result
+hoge hoge
+
+```
 
 
 ----
