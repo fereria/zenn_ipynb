@@ -23,7 +23,9 @@
 {% endblock input %}
 
 {% block error %}
-{{ super() | add_prompts("> ","> ")}}
+```bat : >> Result Error
+{{ super() }}
+```
 {% endblock error %}
 
 {% block traceback_line %}
@@ -38,7 +40,9 @@
 {% endblock execute_result %}
 
 {% block stream %}
-{{ output.text | add_prompts("> ","> ")}}
+```bat : >> Result
+{{ output.text }}
+```
 {% endblock stream %}
 
 {% block data_svg %}
@@ -66,9 +70,10 @@
 {% endblock data_markdown %}
 
 {% block data_text scoped %}
-{{ output.data['text/plain'] | add_prompts("> ","> ")}}
+```bat: >> Result
+{{ output.data['text/plain']}}
 {% endblock data_text %}
-
+```
 {% block markdowncell scoped %}
 {{ cell.source }}
 {% endblock markdowncell %}
