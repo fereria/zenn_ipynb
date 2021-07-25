@@ -72,8 +72,8 @@
 {% block data_text scoped %}
 ```bat: >> Result
 {{ output.data['text/plain']}}
-{% endblock data_text %}
 ```
+{% endblock data_text %}
 {% block markdowncell scoped %}
 {{ cell.source }}
 {% endblock markdowncell %}
