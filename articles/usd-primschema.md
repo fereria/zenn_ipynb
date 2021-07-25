@@ -150,6 +150,7 @@ cube.GetSizeAttr().Set(10) # 大きさを変更する
 
 ```bat: >> Result
 True
+```
 
 
 
