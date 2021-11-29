@@ -3,7 +3,7 @@ title: "Pythonで始めるUSDの基本(2) - Primとスキーマ"
 emoji: "🦜"
 type: "tech"
 topics: ["USD","Python","3DCG"]
-published: true
+published: false
 ---
 前回のStage/Layer解説に続いて、第二回目はUsdPrimについて詳しく説明していきたいと思います。
 

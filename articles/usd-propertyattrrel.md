@@ -3,7 +3,7 @@ title: "Pythonで始めるUSDの基本(3) - Attribute/Property/Relationship"
 emoji: "😸"
 type: "tech"
 topics: ["USD","Python","3DCG"]
-published: true
+published: false
 ---
 前回でUSDのPrimとスキーマについて見てきました。
 
@@ -234,12 +234,3 @@ Stage/Layer/Prim/Property をまとめるとこのような感じになります
 これをおさえておくと、Mayaから出力したUSDをPythonで操作したり...といったことも  
 だいぶやりやすくなるのではと思います。
 
-
-
-----
-
-
-
-```python
-
-```
